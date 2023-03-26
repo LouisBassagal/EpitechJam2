@@ -7,13 +7,19 @@ public class LevelManager : MonoBehaviour
 {
     public string ActualScene;
     public string NewSceneName;
+    public GameObject Music;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(Music);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.UnloadSceneAsync(ActualScene);
+            Scene CurrentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(NewSceneName);
+            SceneManager.UnloadSceneAsync(ActualScene);
         }
     }
 }
